@@ -20,6 +20,8 @@
     a:focus-visible { outline: 2px solid #4A9E96; outline-offset: 3px; border-radius: 6px; }
     ul, ol { list-style: none; }
     button { cursor: pointer; font-family: 'Inter', sans-serif; border: none; background: none; }
+    details > summary { list-style: none; }
+    details > summary::-webkit-details-marker { display: none; }
 
     :root {
       --lav: #4A9E96; --lav-mid: #8ECBC6; --lav-light: #C8E8E5; --lav-tint: #F0F7F6;
@@ -35,6 +37,7 @@
     p { margin-bottom: 1rem; }
     p:last-child { margin-bottom: 0; }
     strong { font-weight: 600; color: var(--heading); }
+    em { font-style: italic; color: var(--teal); }
 
     .container { max-width: 1140px; margin-inline: auto; padding-inline: 1.5rem; }
     .section { padding-block: 5rem; }
@@ -44,11 +47,9 @@
 
     .skip-link { position: absolute; top: -100%; left: 1rem; background: var(--lav); color: #fff; padding: 0.5rem 1rem; border-radius: 12px; font-size: 0.875rem; font-weight: 500; z-index: 9999; transition: top 150ms; }
     .skip-link:focus { top: 1rem; }
-    @media (max-width: 768px) {
-      .mobile-sticky-cta { display: block !important; }
-    }
 
-    /* BUTTONS */
+    /* NAV */
+        /* BUTTONS */
     .btn { display: inline-flex; align-items: center; justify-content: center; gap: 0.5rem; font-family: 'Inter', sans-serif; font-size: 0.875rem; font-weight: 600; line-height: 1; padding: 1rem 2rem; border-radius: 9999px; border: 2px solid transparent; transition: all 250ms ease; cursor: pointer; white-space: nowrap; text-decoration: none; }
     .btn--primary { background: var(--teal); color: #fff; border-color: var(--teal); }
     .btn--primary:hover { background: var(--teal-dark); border-color: var(--teal-dark); color: #fff; transform: translateY(-2px); box-shadow: 0 6px 20px rgba(74,158,150,0.35); }
@@ -61,159 +62,213 @@
     .btn--cta-secondary { background: transparent; color: #fff; border-color: rgba(255,255,255,0.5); }
     .btn--cta-secondary:hover { background: rgba(255,255,255,0.1); color: #fff; transform: translateY(-2px); }
 
-    /* BREADCRUMB */
-    .breadcrumb ol { display: flex; align-items: center; gap: 0.5rem; margin-bottom: 1.25rem; }
-    .breadcrumb li { font-size: 0.875rem; color: var(--body); }
-    .breadcrumb a { color: var(--teal); font-weight: 500; text-decoration: none; }
-    .breadcrumb a:hover { color: var(--teal-dark); }
-    .breadcrumb [aria-current="page"] { color: var(--heading); font-weight: 600; }
+    /* BADGES */
+    .badge { display: inline-flex; font-size: 0.75rem; font-weight: 600; padding: 0.25rem 0.75rem; border-radius: 9999px; }
+    .badge--lavender { background: var(--lav-light); color: #1A2E2D; }
+    .badge--teal { background: var(--teal-mid); color: #085041; }
 
-    /* PAGE HERO */
-    .page-hero {
+    /* ── HERO ── */
+    .hero {
       position: relative;
-      overflow: visible;
-      padding-block: 4rem 3rem;
-      border-bottom: 1px solid var(--lav-light);
+      overflow: hidden;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
     }
-    .page-hero-bg {
+    .hero-bg {
       position: absolute;
       inset: 0;
       background:
-        linear-gradient(135deg, rgba(26,46,45,0.48) 0%, rgba(74,158,150,0.25) 100%),
+        linear-gradient(135deg,
+          rgba(26,46,45,0.52) 0%,
+          rgba(45,125,118,0.30) 55%,
+          rgba(74,158,150,0.12) 100%),
         url('https://assets.cdn.filesafe.space/3QseJoEOMISa0uUNTny3/media/6a31eb7a6dd61c546ae6b168.png') center/cover no-repeat;
       z-index: 0;
     }
-    .page-hero .container { position: relative; z-index: 1; }
-    .page-hero .eyebrow { color: var(--teal-mid); }
-    .page-hero h1 { color: #fff; }
-    .page-hero-subtitle { color: rgba(255,255,255,0.85) !important; }
-    .page-hero-meta { color: rgba(255,255,255,0.60) !important; }
-    .breadcrumb a { color: var(--teal-mid) !important; }
-    .breadcrumb li { color: rgba(255,255,255,0.65) !important; }
-    .breadcrumb [aria-current="page"] { color: #fff !important; font-weight: 600; }
-    .page-hero-inner { display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; align-items: center; }
-    .page-hero-subtitle { font-size: 1.125rem; color: var(--body); margin-top: 0.5rem; max-width: 520px; }
-
-    /* Hero image placeholder */
-    .page-hero-image { position: relative; }
-    .page-hero-img-placeholder {
-      width: 100%;
-      aspect-ratio: 4/3;
-      background: linear-gradient(135deg, var(--lav-light) 0%, var(--teal-mid) 100%);
-      border-radius: 20px;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      gap: 0.75rem;
-      border: 2px dashed var(--lav-mid);
-      position: relative;
-      overflow: hidden;
-    }
-    .page-hero-img-placeholder::before {
+    .hero-bg::after {
       content: '';
       position: absolute;
       inset: 0;
-      background: radial-gradient(ellipse at 30% 30%, rgba(255,255,255,0.25) 0%, transparent 60%);
+      background: radial-gradient(ellipse at 30% 70%, rgba(74,158,150,0.18) 0%, transparent 60%);
     }
-    .page-hero-img-icon {
-      width: 56px; height: 56px;
-      border-radius: 50%;
-      background: rgba(255,255,255,0.3);
-      display: flex; align-items: center; justify-content: center;
-      color: #fff;
-      position: relative; z-index: 1;
-    }
-    .page-hero-img-label {
-      font-size: 0.8rem;
-      font-weight: 600;
-      color: rgba(255,255,255,0.9);
-      letter-spacing: 0.05em;
-      text-align: center;
-      position: relative; z-index: 1;
-    }
-    .page-hero-img-sub {
-      font-size: 0.7rem;
-      color: rgba(255,255,255,0.7);
-      text-align: center;
-      position: relative; z-index: 1;
-    }
-    /* Floating trust badge on image */
-    .page-hero-badge {
+    .hero-orb {
       position: absolute;
-      bottom: -0.75rem;
-      left: 1.5rem;
-      background: #F7F9F8;
-      border: 1px solid var(--lav-light);
-      border-radius: 12px;
-      padding: 0.75rem 1rem;
-      display: flex;
-      align-items: center;
-      gap: 0.75rem;
-      box-shadow: 0 4px 16px rgba(26,46,45,0.12);
+      border-radius: 50%;
+      filter: blur(80px);
+      opacity: 0.15;
+      pointer-events: none;
     }
-    .page-hero-badge-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--teal); flex-shrink: 0; animation: pulse-dot 2s infinite; }
+    .hero-orb--1 { width: 500px; height: 500px; background: var(--teal-mid); top: -120px; right: 5%; animation: floatOrb 14s ease-in-out infinite; }
+    .hero-orb--2 { width: 320px; height: 320px; background: var(--teal-mid); bottom: -60px; left: 0; animation: floatOrb 10s ease-in-out infinite reverse; }
+    @keyframes floatOrb { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-24px)} }
+
+    .hero-inner { display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; align-items: center; position: relative; z-index: 2; padding-block: 4rem 6rem; }
+    .hero-eyebrow { display: inline-flex; align-items: center; gap: 0.5rem; background: rgba(255,255,255,0.15); border: 1px solid rgba(255,255,255,0.32); backdrop-filter: blur(8px); border-radius: 9999px; padding: 0.45rem 1.1rem; font-size: 0.75rem; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: rgba(255,255,255,0.95); margin-bottom: 1.5rem; }
+    .hero-eyebrow-dot { width: 6px; height: 6px; background: var(--teal-mid); border-radius: 50%; flex-shrink: 0; }
+    .hero-heading { color: #fff; margin-bottom: 1.5rem; }
+    .hero-heading em { color: var(--teal-mid); font-style: italic; }
+    .hero-subheading { font-size: 1.125rem; color: rgba(255,255,255,0.85); max-width: 500px; margin-bottom: 1rem; font-weight: 300; }
+    .hero-detail { font-size: 0.875rem; color: rgba(255,255,255,0.65); font-weight: 400; margin-bottom: 2rem; }
+    .hero-ctas { display: flex; gap: 1rem; flex-wrap: wrap; margin-bottom: 2.5rem; }
+    .hero-trust { display: flex; align-items: center; gap: 0.75rem; }
+    .hero-trust-avatars { display: flex; }
+    .avatar { width: 32px; height: 32px; border-radius: 50%; background: rgba(217,208,238,0.3); border: 2px solid rgba(255,255,255,0.5); display: flex; align-items: center; justify-content: center; font-size: 0.75rem; font-weight: 600; color: #fff; margin-left: -8px; backdrop-filter: blur(4px); }
+    .avatar:first-child { margin-left: 0; }
+    .hero-trust-text { font-size: 0.875rem; color: rgba(255,255,255,0.78); margin-bottom: 0; }
+
+    /* Hero card */
+    .hero-card { background: rgba(255,255,255,0.12); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); border: 1px solid rgba(255,255,255,0.22); border-radius: 24px; padding: 2rem; }
+    .hero-card-label { font-size: 0.75rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--teal-mid); margin-bottom: 1.25rem; }
+    .hero-card-profile { display: flex; align-items: center; gap: 1rem; margin-bottom: 1.5rem; }
+    .profile-photo-placeholder { width: 56px; height: 56px; border-radius: 50%; background: rgba(217,208,238,0.3); display: flex; align-items: center; justify-content: center; flex-shrink: 0; border: 2px solid rgba(255,255,255,0.4); }
+    .profile-initials { font-family: 'DM Serif Display', serif; font-size: 1.25rem; color: #fff; }
+    .profile-photo { width: 56px; height: 56px; border-radius: 50%; object-fit: cover; flex-shrink: 0; border: 2px solid rgba(255,255,255,0.4); }
+    .profile-name { font-family: 'DM Serif Display', serif; font-size: 1.125rem; color: #fff; font-weight: 400; margin-bottom: 0.25rem; }
+    .profile-title { font-size: 0.75rem; color: rgba(255,255,255,0.70); line-height: 1.4; margin-bottom: 0; }
+    .hero-card-divider { border: none; border-top: 1px solid rgba(255,255,255,0.18); margin-bottom: 1.25rem; }
+    .hero-card-stats { display: flex; flex-direction: column; gap: 0.75rem; margin-bottom: 1.25rem; }
+    .hero-stat { display: flex; justify-content: space-between; align-items: center; }
+    .hero-stat-label { font-size: 0.875rem; color: rgba(255,255,255,0.70); display: flex; align-items: center; gap: 0.5rem; }
+    .stat-icon { color: var(--teal-mid); flex-shrink: 0; }
+    .hero-stat-value { font-size: 0.875rem; font-weight: 600; color: #fff; }
+    .hero-availability { display: flex; align-items: center; gap: 0.5rem; background: rgba(255,255,255,0.10); border-radius: 10px; padding: 0.75rem 1rem; margin-bottom: 0.75rem; font-size: 0.875rem; color: rgba(255,255,255,0.88); }
+    .hero-availability p { margin-bottom: 0; }
+    .availability-dot { width: 8px; height: 8px; border-radius: 50%; background: #5EFFD0; flex-shrink: 0; animation: pulse-dot 2s infinite; }
     @keyframes pulse-dot { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:0.6;transform:scale(1.3)} }
-    .page-hero-badge-text { font-size: 0.8rem; font-weight: 600; color: var(--heading); }
-    .page-hero-badge-sub { font-size: 0.7rem; color: var(--body); }
+    .hero-card-telehealth { display: flex; align-items: center; gap: 0.5rem; font-size: 0.75rem; color: var(--teal-mid); font-weight: 500; }
 
-    /* SERVICES OVERVIEW SECTION */
-    .services-intro { background: #F7F9F8; }
-    .services-intro-inner { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center; }
-    .services-intro-text p { margin-bottom: 1rem; }
-    .services-intro-stats { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
-    .intro-stat { background: var(--lav-tint); border: 1px solid var(--lav-light); border-radius: 16px; padding: 1.25rem; text-align: center; }
-    .intro-stat-num { font-family: 'DM Serif Display', serif; font-size: 2.5rem; color: var(--teal); line-height: 1; display: block; }
-    .intro-stat-label { font-size: 0.875rem; color: var(--body); display: block; margin-top: 0.25rem; }
+    .hero-scroll { display: none; }
 
-    /* SERVICE GROUP SECTIONS */
-    .services-group-section { padding-block: 4rem; }
-    .services-group-section:nth-child(even) { background: var(--lav-tint); }
-    .services-group-section:nth-child(odd) { background: #F7F9F8; }
-    .group-header { margin-bottom: 2.5rem; }
-    .group-label { display: inline-block; font-size: 0.75rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--teal); background: var(--teal-mid); padding: 0.25rem 0.75rem; border-radius: 9999px; margin-bottom: 0.75rem; }
-    .group-label--lav { background: var(--lav-light); color: #1A2E2D; }
-    .group-title { font-size: clamp(1.5rem, 3vw, 2rem); margin-bottom: 0.5rem; }
-    .group-desc { font-size: 1rem; color: var(--body); max-width: 600px; }
+    /* STATS BAR */
+    .stats-bar { background: var(--teal-dark); padding-block: 2rem; }
+    .stats-list { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem; }
+    .stats-item { text-align: center; }
+    .stats-number { display: inline; font-family: 'DM Serif Display', serif; font-size: 3rem; color: #fff; line-height: 1; }
+    .stats-suffix { font-family: 'DM Serif Display', serif; font-size: 1.875rem; color: var(--teal-mid); }
+    .stats-label { display: block; font-size: 0.875rem; color: var(--teal-mid); margin-top: 0.5rem; font-weight: 500; }
 
-    .services-cards-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.25rem; }
-    .services-cards-grid--two { grid-template-columns: repeat(2, 1fr); }
+    /* SERVICES */
+    .services-section { background: #F7F9F8; }
+    .services-group { margin-bottom: 3rem; }
+    .services-group-label { font-size: 0.75rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--lav); margin-bottom: 1.5rem; padding-bottom: 0.75rem; border-bottom: 1px solid var(--lav-light); font-family: 'Inter', sans-serif; }
+    .services-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.25rem; }
+    .services-grid--half { grid-template-columns: repeat(2, 1fr); }
+    .service-card { background: var(--lav-tint); border: 1px solid var(--lav-light); border-radius: 20px; padding: 1.5rem; transition: transform 250ms, box-shadow 250ms, border-color 250ms; position: relative; overflow: hidden; }
+    .service-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; background: linear-gradient(90deg, var(--lav) 0%, var(--teal) 100%); opacity: 0; transition: opacity 250ms; }
+    .service-card:hover::before { opacity: 1; }
+    .service-card:hover { transform: translateY(-4px); box-shadow: 0 4px 20px rgba(26,46,45,0.12); border-color: var(--lav-mid); }
+    .service-card--teal { background: #F7F9F8; border-color: var(--teal-mid); }
+    .service-card--teal:hover { border-color: var(--teal); box-shadow: 0 4px 16px rgba(74,158,150,0.12); }
+    .service-card-icon { width: 48px; height: 48px; border-radius: 12px; background: var(--lav-light); display: flex; align-items: center; justify-content: center; color: var(--lav); margin-bottom: 1rem; transition: background 250ms, color 250ms; }
+    .service-card--teal .service-card-icon { background: var(--teal-mid); color: var(--teal-dark); }
+    .service-card:hover .service-card-icon { background: var(--lav); color: #fff; }
+    .service-card--teal:hover .service-card-icon { background: var(--teal); color: #fff; }
+    .service-card-title { font-size: 1.125rem; color: var(--heading); margin-bottom: 0.5rem; }
+    .service-card-desc { font-size: 0.875rem; color: var(--body); margin-bottom: 1rem; }
+    .service-card-link { font-size: 0.875rem; font-weight: 600; color: var(--teal); display: inline-flex; align-items: center; gap: 0.25rem; text-decoration: none; transition: color 150ms; }
+    .service-card-link:hover { color: var(--teal-dark); }
+    .services-cta { text-align: center; margin-top: 2rem; }
 
-    /* SERVICE CARD — full detail version */
-    .service-card-full { background: #F7F9F8; border: 1px solid var(--lav-light); border-radius: 20px; padding: 1.75rem; transition: transform 250ms, box-shadow 250ms, border-color 250ms; display: flex; flex-direction: column; }
-    .service-card-full:hover { transform: translateY(-4px); box-shadow: 0 8px 24px rgba(26,46,45,0.12); border-color: var(--lav-mid); }
-    .service-card-full--teal { border-color: var(--teal-mid); }
-    .service-card-full--teal:hover { border-color: var(--teal); box-shadow: 0 8px 24px rgba(74,158,150,0.12); }
-    .svc-icon { width: 52px; height: 52px; border-radius: 14px; background: var(--lav-light); display: flex; align-items: center; justify-content: center; color: var(--lav); margin-bottom: 1.25rem; transition: background 250ms, color 250ms; flex-shrink: 0; }
-    .service-card-full--teal .svc-icon { background: var(--teal-mid); color: var(--teal-dark); }
-    .service-card-full:hover .svc-icon { background: var(--lav); color: #fff; }
-    .service-card-full--teal:hover .svc-icon { background: var(--teal); color: #fff; }
-    .svc-title { font-size: 1.125rem; color: var(--heading); margin-bottom: 0.5rem; }
-    .svc-desc { font-size: 0.875rem; color: var(--body); line-height: 1.65; margin-bottom: 1rem; flex: 1; }
-    .svc-tags { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-bottom: 1.25rem; }
-    .svc-tag { font-size: 0.7rem; font-weight: 600; padding: 0.2rem 0.6rem; border-radius: 9999px; background: var(--lav-light); color: #1A2E2D; }
-    .svc-tag--teal { background: var(--teal-mid); color: #085041; }
-    .svc-link { font-size: 0.875rem; font-weight: 600; color: var(--teal); display: inline-flex; align-items: center; gap: 0.25rem; text-decoration: none; margin-top: auto; transition: color 150ms, gap 150ms; }
-    .svc-link:hover { color: var(--teal-dark); gap: 0.5rem; }
+    /* MEET WINNIE */
+    .meet-section {
+      position: relative;
+      overflow: hidden;
+    }
+    .meet-section-bg {
+      position: absolute;
+      inset: 0;
+      background:
+        linear-gradient(to right,
+          rgba(245,243,252,0.97) 0%,
+          rgba(245,243,252,0.92) 40%,
+          rgba(245,243,252,0.65) 65%,
+          rgba(245,243,252,0.25) 100%),
+        url('https://assets.cdn.filesafe.space/3QseJoEOMISa0uUNTny3/media/6a2b90af0b818c92b35b26f9.png') center right/cover no-repeat;
+      z-index: 0;
+    }
+    .meet-inner { display: grid; grid-template-columns: 1fr 1.4fr; gap: 4rem; align-items: center; padding-block: 5rem; position: relative; z-index: 1; }
+    .meet-photo-placeholder { width: 100%; aspect-ratio: 3/4; background: var(--lav-light); border-radius: 28px; display: flex; align-items: center; justify-content: center; border: 3px solid var(--lav-mid); max-width: 360px; }
+    .meet-initials { font-family: 'DM Serif Display', serif; font-size: 5rem; color: var(--lav); opacity: 0.6; }
+    .meet-photo { width: 100%; aspect-ratio: 3/4; object-fit: cover; border-radius: 28px; max-width: 360px; border: 3px solid var(--lav-mid); }
+    .meet-image { position: relative; }
+    .meet-credential-card { position: absolute; bottom: 1rem; right: -1rem; background: #F7F9F8; border: 1px solid var(--teal-mid); border-radius: 12px; padding: 1rem 1.25rem; box-shadow: 0 4px 16px rgba(26,46,45,0.12); }
+    .credential-title { font-size: 0.875rem; font-weight: 600; color: var(--heading); margin-bottom: 0.25rem; }
+    .credential-sub { font-size: 0.75rem; color: var(--teal); font-weight: 500; margin-bottom: 0; }
+    .meet-bio { font-size: 1rem; color: var(--body); margin-bottom: 1rem; }
+    .meet-badges { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 2rem; }
 
-    /* FUNDING STRIP */
-    .funding-strip { background: var(--teal-dark); padding-block: 2.5rem; }
-    .funding-strip-inner { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem; }
-    .funding-item { text-align: center; }
-    .funding-item-icon { width: 44px; height: 44px; border-radius: 50%; background: rgba(255,255,255,0.12); display: flex; align-items: center; justify-content: center; color: var(--teal-mid); margin-inline: auto; margin-bottom: 0.75rem; }
-    .funding-item-title { font-size: 0.875rem; font-weight: 600; color: #fff; margin-bottom: 0.25rem; }
-    .funding-item-desc { font-size: 0.75rem; color: rgba(255,255,255,0.65); }
+    /* PROCESS */
+    .process-section {
+      background:
+        radial-gradient(ellipse at 50% 0%, rgba(142,203,198,0.15) 0%, transparent 60%),
+        var(--ivory);
+    }
+    .process-inner { padding-block: 5rem; }
+    .process-steps { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem; position: relative; }
+    .process-steps::before { content: ''; position: absolute; top: 28px; left: calc(16.667% + 20px); right: calc(16.667% + 20px); height: 2px; background: rgba(74,158,150,0.3); z-index: 0; }
+    .process-step { text-align: center; position: relative; z-index: 1; }
+    .process-step-number { width: 56px; height: 56px; border-radius: 50%; background: var(--teal); color: #fff; font-family: 'DM Serif Display', serif; font-size: 1.5rem; display: flex; align-items: center; justify-content: center; margin-inline: auto; margin-bottom: 1.25rem; border: 3px solid var(--ivory); box-shadow: 0 0 0 4px var(--teal-mid); }
+    .process-step-title { font-size: 1.25rem; color: var(--heading); margin-bottom: 0.75rem; }
+    .process-step-desc { font-size: 0.875rem; color: var(--body); max-width: 220px; margin-inline: auto; }
 
-    /* NOT SURE SECTION */
-    .not-sure-section { background: var(--ivory); }
-    .not-sure-inner { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center; }
-    .not-sure-content h2 { margin-bottom: 1rem; }
-    .not-sure-content p { margin-bottom: 1.5rem; }
-    .not-sure-steps { display: flex; flex-direction: column; gap: 1rem; }
-    .not-sure-step { display: flex; align-items: flex-start; gap: 1rem; background: #F7F9F8; border: 1px solid var(--lav-light); border-radius: 12px; padding: 1rem 1.25rem; }
-    .not-sure-step-num { width: 32px; height: 32px; border-radius: 50%; background: var(--teal); color: #fff; font-family: 'DM Serif Display', serif; font-size: 1rem; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
-    .not-sure-step-text { font-size: 0.875rem; color: var(--body); margin-bottom: 0; }
-    .not-sure-step-title { font-size: 0.875rem; font-weight: 600; color: var(--heading); margin-bottom: 0.2rem; font-family: 'Inter', sans-serif; }
+    /* TESTIMONIALS */
+    .testimonials-section {
+      background:
+        radial-gradient(ellipse at 20% 50%, rgba(74,158,150,0.12) 0%, transparent 50%),
+        radial-gradient(ellipse at 80% 50%, rgba(74,158,150,0.08) 0%, transparent 50%),
+        var(--lav-tint);
+    }
+    .testimonials-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.25rem; margin-bottom: 2rem; }
+    .testimonial-card { background: #F7F9F8; border: 1px solid var(--lav-light); border-radius: 20px; padding: 1.5rem; transition: transform 250ms, box-shadow 250ms; }
+    .testimonial-card:hover { transform: translateY(-3px); box-shadow: 0 4px 16px rgba(26,46,45,0.10); }
+    .testimonial-stars { color: var(--teal); font-size: 1rem; letter-spacing: 0.1em; margin-bottom: 1rem; }
+    .testimonial-text { font-size: 1rem; color: var(--body); font-style: italic; line-height: 1.7; margin-bottom: 1.25rem; }
+    .testimonial-author { display: flex; align-items: center; gap: 0.75rem; }
+    .testimonial-avatar { width: 40px; height: 40px; border-radius: 50%; background: var(--lav-light); display: flex; align-items: center; justify-content: center; font-family: 'DM Serif Display', serif; font-size: 1.125rem; color: var(--lav); flex-shrink: 0; }
+    .testimonial-name { font-size: 0.875rem; font-weight: 600; color: var(--heading); margin-bottom: 0; }
+    .testimonial-service { font-size: 0.75rem; color: var(--teal); font-weight: 500; margin-bottom: 0; }
+
+    /* GHL PLACEHOLDER */
+    .ghl-placeholder { background: #F7F9F8; border: 2px dashed var(--lav-mid); border-radius: 20px; padding: 2.5rem; text-align: center; margin-top: 1.5rem; }
+    .ghl-placeholder-label { display: inline-flex; align-items: center; gap: 0.5rem; font-size: 0.875rem; font-weight: 600; color: var(--lav); margin-bottom: 0.5rem; }
+    .ghl-placeholder-sub { font-size: 0.75rem; color: var(--body); opacity: 0.7; margin-bottom: 0; }
+
+    /* FUNDING */
+    .funding-section {
+      background:
+        radial-gradient(ellipse at 100% 100%, rgba(74,158,150,0.08) 0%, transparent 50%),
+        #fff;
+    }
+    .funding-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.25rem; margin-bottom: 2rem; }
+    .funding-card { background: var(--lav-tint); border: 1px solid var(--lav-light); border-radius: 20px; padding: 1.5rem; transition: transform 250ms, box-shadow 250ms; }
+    .funding-card:hover { transform: translateY(-3px); box-shadow: 0 4px 16px rgba(26,46,45,0.10); }
+    .funding-icon { width: 52px; height: 52px; border-radius: 12px; background: var(--teal-mid); display: flex; align-items: center; justify-content: center; color: var(--teal-dark); margin-bottom: 1rem; }
+    .funding-title { font-size: 1.125rem; color: var(--heading); margin-bottom: 0.5rem; }
+    .funding-desc { font-size: 0.875rem; color: var(--body); margin-bottom: 1rem; }
+    .funding-link { font-size: 0.875rem; font-weight: 600; color: var(--teal); text-decoration: none; }
+    .funding-link:hover { color: var(--teal-dark); }
+    .funding-bulk-note { text-align: center; font-size: 0.875rem; color: var(--body); background: var(--ivory); border-radius: 12px; padding: 1rem 1.5rem; }
+    .funding-bulk-note a { color: var(--teal); font-weight: 600; margin-left: 0.25rem; text-decoration: none; }
+
+    /* FAQ */
+    .faq-section { background: var(--lav-tint); }
+    .faq-inner { display: grid; grid-template-columns: 1fr 1.5fr; gap: 4rem; align-items: start; }
+    .faq-list { display: flex; flex-direction: column; gap: 0.75rem; }
+    .faq-item { background: #F7F9F8; border: 1px solid var(--lav-light); border-radius: 12px; overflow: hidden; transition: box-shadow 250ms; }
+    .faq-item[open] { box-shadow: 0 1px 3px rgba(26,46,45,0.08); }
+    .faq-question { display: flex; justify-content: space-between; align-items: center; padding: 1.25rem 1.5rem; cursor: pointer; font-size: 1rem; font-weight: 600; color: var(--heading); user-select: none; gap: 1rem; transition: background 150ms; }
+    .faq-question:hover { background: var(--lav-tint); }
+    .faq-icon { font-size: 1.25rem; font-weight: 300; color: var(--teal); flex-shrink: 0; transition: transform 250ms; }
+    .faq-item[open] .faq-icon { transform: rotate(45deg); }
+    .faq-answer { padding: 0 1.5rem 1.25rem; border-top: 1px solid var(--lav-light); }
+    .faq-answer p { font-size: 0.875rem; color: var(--body); padding-top: 1rem; margin-bottom: 0; }
+
+    /* QUOTE */
+    .quote-section { background: var(--teal-dark); padding-block: 4rem; }
+    .site-quote { text-align: center; max-width: 700px; margin-inline: auto; }
+    .site-quote-text { font-family: 'DM Serif Display', serif; font-size: clamp(1.25rem, 3vw, 1.875rem); color: #fff; line-height: 1.5; margin-bottom: 1.25rem; font-style: italic; }
+    .site-quote-attr { font-size: 0.875rem; color: var(--teal-mid); font-weight: 500; }
 
     /* CTA */
     .cta-section { background: var(--cta-bg); padding-block: 5rem; }
@@ -271,37 +326,44 @@
     .animate-delay-1 { transition-delay: 0.15s !important; }
 
     /* RESPONSIVE */
+    @media (max-width: 1100px) { .funding-grid { grid-template-columns: repeat(2,1fr); } }
     @media (max-width: 900px) {
-      .page-hero-inner { grid-template-columns: 1fr; gap: 2rem; }
-      .page-hero-image { max-width: 480px; }
-      .services-intro-inner { grid-template-columns: 1fr; gap: 2.5rem; }
-      .services-cards-grid { grid-template-columns: repeat(2, 1fr); }
-      .services-cards-grid--two { grid-template-columns: 1fr; }
-      .not-sure-inner { grid-template-columns: 1fr; gap: 2.5rem; }
-      .funding-strip-inner { grid-template-columns: repeat(2, 1fr); gap: 1.5rem; }
+      .hero-inner { grid-template-columns: 1fr; gap: 2.5rem; padding-block: 6rem 4rem; }
+      .hero-card { max-width: 480px; }
+      .services-grid { grid-template-columns: repeat(2,1fr); }
+      .services-grid--half { grid-template-columns: 1fr; }
+      .meet-inner { grid-template-columns: 1fr; gap: 2.5rem; }
+      .meet-image { display: flex; justify-content: center; }
+
+      .process-steps { grid-template-columns: 1fr; gap: 1.5rem; }
+      .process-steps::before { display: none; }
+      .process-step { text-align: left; display: flex; align-items: flex-start; gap: 1.25rem; }
+      .process-step-number { margin-inline: 0; flex-shrink: 0; }
+      .process-step-desc { margin-inline: 0; }
+      .testimonials-grid { grid-template-columns: 1fr; max-width: 520px; margin-inline: auto; }
+      .faq-inner { grid-template-columns: 1fr; gap: 2rem; }
+      .stats-list { grid-template-columns: repeat(2,1fr); gap: 1.5rem; }
       .footer-top { grid-template-columns: 1fr; gap: 2.5rem; }
-      .footer-nav { grid-template-columns: repeat(3, 1fr); }
+      .footer-nav { grid-template-columns: repeat(3,1fr); }
     }
     @media (max-width: 768px) {
       .mobile-sticky-cta { display: block; }
       body { padding-bottom: 76px; }
     }
     @media (max-width: 600px) {
-      .container { padding-inline: 1rem; }
-      .services-cards-grid, .services-cards-grid--two { grid-template-columns: 1fr; }
-      .services-intro-stats { grid-template-columns: 1fr 1fr; }
-      .funding-strip-inner { grid-template-columns: 1fr 1fr; }
-      .cta-buttons { flex-direction: column; align-items: center; }
-      .cta-buttons .btn { width: 100%; max-width: 300px; justify-content: center; }
+      .hero-inner { padding-block: 6rem 4rem; }
+      .services-grid, .services-grid--half { grid-template-columns: 1fr; }
+      .funding-grid { grid-template-columns: 1fr; }
+      .stats-list { grid-template-columns: repeat(2,1fr); }
+      .hero-ctas, .cta-buttons { flex-direction: column; }
+      .hero-ctas .btn, .cta-buttons .btn { width: 100%; justify-content: center; }
       .footer-nav { grid-template-columns: 1fr 1fr; }
       .footer-bottom { flex-direction: column; align-items: flex-start; }
+      .testimonials-grid { max-width: 100%; }
+      .container { padding-inline: 1rem; }
     }
 
     /* ── SERVICE CARD IMAGE PLACEHOLDERS ── */
-    .svc-img-placeholder { width: 100%; aspect-ratio: 4/3; border-radius: 12px; background: var(--lav-light); border: 2px dashed var(--lav-mid); display: flex; flex-direction: column; align-items: center; justify-content: center; margin-bottom: 1.25rem; gap: 0.5rem; }
-    .svc-img-placeholder svg { color: var(--lav); opacity: 0.6; }
-    .svc-img-placeholder-label { font-size: 0.7rem; color: var(--body); opacity: 0.7; font-weight: 500; }
-    .svc-img { width: 100%; aspect-ratio: 4/3; object-fit: cover; border-radius: 12px; margin-bottom: 1.25rem; display: block; }
     .service-card-img-placeholder { width: 100%; aspect-ratio: 4/3; border-radius: 12px; background: var(--lav-light); border: 2px dashed var(--lav-mid); display: flex; flex-direction: column; align-items: center; justify-content: center; margin-bottom: 1rem; gap: 0.4rem; }
     .service-card-img-placeholder svg { color: var(--lav); opacity: 0.6; }
     .service-card-img-placeholder-label { font-size: 0.65rem; color: var(--body); opacity: 0.7; font-weight: 500; }
@@ -312,258 +374,340 @@
 
   <main id="main-content">
 
-    <!-- PAGE HERO -->
-    <section class="page-hero" style="position:relative;" aria-labelledby="page-hero-heading">
-      <div class="page-hero-bg" aria-hidden="true"></div>
-      <div class="container">
-        <nav class="breadcrumb" aria-label="Breadcrumb">
-          <ol role="list">
-            <li><a href="/">Home</a></li>
-            <li aria-hidden="true">/</li>
-            <li aria-current="page">Services</li>
-          </ol>
-        </nav>
-        <div class="page-hero-inner">
-          <div class="animate-fade-up">
-            <span class="eyebrow">How we can help</span>
-            <h1 id="page-hero-heading">How We Can Help You</h1>
-            <p class="page-hero-subtitle">Evidence-based psychological support across a wide range of life challenges — delivered with compassion, without judgement, and at a pace that feels right for you.</p>
-          </div>
-          <div class="page-hero-image animate-fade-up animate-delay-1">
-            <!--
-              IMAGE PLACEHOLDER
-              Replace the div below with:
-              <img src="https://assets.cdn.filesafe.space/3QseJoEOMISa0uUNTny3/media/6a2ba87bc53e51acc09d6bb2.png" alt="Winnie Chong in a therapy session at Trinity Haven Psychology, Norwest" class="page-hero-photo" style="width:100%;border-radius:20px;object-fit:cover;aspect-ratio:4/3;" />
-            -->
-            <!--
-<div class="page-hero-img-placeholder" aria-label="Image placeholder — replace with a photo of Winnie or the practice">
-              <div class="page-hero-img-icon" aria-hidden="true">
-                <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="m21 15-5-5L5 21"/></svg>
-              </div>
-              <p class="page-hero-img-label">Your photo goes here</p>
-              <p class="page-hero-img-sub">Replace with a photo of Winnie or the practice</p>
-            </div>
-            <div class="page-hero-badge">
-              <span class="page-hero-badge-dot" aria-hidden="true"></span>
-              <div>
-                <p class="page-hero-badge-text">Accepting new clients</p>
-                <p class="page-hero-badge-sub">Medicare &amp; NDIS accepted</p>
-              </div>
-            </div>
-            -->
-            -->
-          </div>
-        </div>
-      </div>
-    </section>
+    <!-- HERO -->
+    <section class="hero" aria-labelledby="hero-heading">
+      <div class="hero-bg" role="img" aria-label="Serene misty forest pathway at dawn" aria-hidden="true"></div>
+      <div class="hero-orb hero-orb--1" aria-hidden="true"></div>
+      <div class="hero-orb hero-orb--2" aria-hidden="true"></div>
 
-    <!-- INTRO -->
-    <section class="section services-intro" aria-labelledby="services-intro-heading">
-      <div class="container services-intro-inner">
-        <div class="services-intro-text animate-fade-up">
-          <span class="eyebrow">Our approach</span>
-          <h2 id="services-intro-heading">Evidence-based support for every stage of life</h2>
-          <p>Every service at Trinity Haven Psychology begins with one simple commitment: meeting you where you are. Whether you're taking your first step toward support or continuing a journey that's already underway, Winnie brings 17+ years of cross-sector experience to every session.</p>
-          <p>All services are available face to face at our Norwest clinic or via telehealth — with Medicare rebates and NDIS funding available.</p>
-          <div style="display:flex;gap:1rem;flex-wrap:wrap;margin-top:1.5rem;">
+      <div class="hero-inner container">
+        <div class="hero-content animate-fade-up">
+          <div class="hero-eyebrow">
+            <span class="hero-eyebrow-dot" aria-hidden="true"></span>
+            Registered Psychologist &middot; Norwest, NSW
+          </div>
+          <h1 id="hero-heading" class="hero-heading">
+            Empowering Minds,<br /><em>Healing Hearts</em>
+          </h1>
+          <p class="hero-subheading">You don't have to face this alone. Whether you're navigating anxiety, grief, relationships, or life's unexpected challenges — compassionate, evidence-based support is here for you.</p>
+          <p class="hero-detail">Serving the Hills District &middot; Medicare &amp; NDIS accepted &middot; Sessions in English, Mandarin &amp; Cantonese</p>
+          <div class="hero-ctas">
             <a href="/contact" class="btn btn--primary">Book an appointment</a>
-            <a href="/fees" class="btn btn--secondary">View fees &amp; rebates</a>
+            <a href="/about" class="btn btn--cta-secondary">Meet Winnie</a>
+          </div>
+          <div class="hero-trust">
+            <div class="hero-trust-avatars" aria-hidden="true">
+              <span class="avatar">S</span><span class="avatar">J</span><span class="avatar">M</span><span class="avatar">+</span>
+            </div>
+            <p class="hero-trust-text">Trusted by hundreds of clients across the Hills District</p>
           </div>
         </div>
-        <div class="services-intro-stats animate-stagger">
-          <div class="intro-stat">
-            <span class="intro-stat-num">17+</span>
-            <span class="intro-stat-label">Years of experience</span>
+
+        <div class="hero-card animate-fade-up animate-delay-1">
+          <p class="hero-card-label">Your psychologist</p>
+          <div class="hero-card-profile">
+            <img src="https://assets.cdn.filesafe.space/3QseJoEOMISa0uUNTny3/media/6a31df3b0a683b64fe9cb1ee.png" alt="Winnie Chong" class="profile-photo" />
+            <div>
+              <p class="profile-name">Winnie Chong</p>
+              <p class="profile-title">Registered Psychologist &amp; Board-Approved Supervisor</p>
+            </div>
           </div>
-          <div class="intro-stat">
-            <span class="intro-stat-num">9+</span>
-            <span class="intro-stat-label">Specialised services</span>
+          <hr class="hero-card-divider" />
+          <ul class="hero-card-stats" role="list">
+            <li class="hero-stat">
+              <span class="hero-stat-label"><svg class="stat-icon" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="6"/><path d="M15.477 12.89 17 22l-5-3-5 3 1.523-9.11"/></svg>Experience</span>
+              <span class="hero-stat-value">17+ years</span>
+            </li>
+            <li class="hero-stat">
+              <span class="hero-stat-label"><svg class="stat-icon" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m5 8 6 6"/><path d="m4 14 6-6 2-3"/><path d="M2 5h12"/><path d="M7 2h1"/><path d="m22 22-5-10-5 10"/><path d="M14 18h6"/></svg>Languages</span>
+              <span class="hero-stat-value">English, Mandarin &amp; Cantonese</span>
+            </li>
+            <li class="hero-stat">
+              <span class="hero-stat-label"><svg class="stat-icon" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>Location</span>
+              <span class="hero-stat-value">Norwest, NSW 2153</span>
+            </li>
+          </ul>
+          <div class="hero-availability"><span class="availability-dot" aria-hidden="true"></span><p>Accepting new clients &middot; Medicare, NDIS &amp; Private Health Care</p></div>
+          <div class="hero-card-telehealth"><svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 10l4.553-2.069A1 1 0 0 1 21 8.82v6.362a1 1 0 0 1-1.447.894L15 14"/><rect x="3" y="6" width="12" height="12" rx="2"/></svg>Telehealth sessions available</div>
+        </div>
+      </div>
+
+    </section>
+
+    <!-- STATS BAR -->
+    <section class="stats-bar" aria-label="Practice statistics">
+      <div class="container">
+        <ul class="stats-list" role="list">
+          <li class="stats-item"><span class="stats-number" data-count="17">0</span><span class="stats-suffix">+</span><span class="stats-label">Years of experience</span></li>
+          <li class="stats-item"><span class="stats-number" data-count="8">0</span><span class="stats-suffix">+</span><span class="stats-label">Specialised services</span></li>
+          <li class="stats-item"><span class="stats-number" data-count="3">0</span><span class="stats-label">Languages spoken</span></li>
+          <li class="stats-item"><span class="stats-number" data-count="100">0</span><span class="stats-suffix">%</span><span class="stats-label">Evidence-based care</span></li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- SERVICES -->
+    <section class="section services-section" aria-labelledby="services-heading">
+      <div class="container">
+        <div class="section-header animate-fade-up">
+          <span class="eyebrow">What we offer</span>
+          <h2 id="services-heading">How can we help you today?</h2>
+          <p class="section-subtitle">Evidence-based support across a wide range of life challenges — delivered with compassion and without judgement.</p>
+        </div>
+        <div class="services-group animate-stagger">
+          <h3 class="services-group-label">For individuals &amp; families</h3>
+          <div class="services-grid">
+            <article class="service-card">
+              <img src="https://assets.cdn.filesafe.space/3QseJoEOMISa0uUNTny3/media/6a31dfc9602476018d6f39ab.png" alt="Anxiety & Depression" class="service-card-img" />
+              <h4 class="service-card-title">Anxiety &amp; Depression</h4>
+              <p class="service-card-desc">Practical, personalised strategies to manage symptoms and rebuild a life that feels like yours again.</p>
+              <a href="/services/anxiety-depression" class="service-card-link">See how we can help &rarr;</a>
+            </article>
+            <article class="service-card">
+              <img src="https://assets.cdn.filesafe.space/3QseJoEOMISa0uUNTny3/media/6a31e2cdc87bd94b123865fb.png" alt="Relationship & Stress" class="service-card-img" />
+              <h4 class="service-card-title">Relationship &amp; Stress</h4>
+              <p class="service-card-desc">Rebuild communication, intimacy, and connection — whether you're coming alone or as a couple.</p>
+              <a href="/services/relationship-stress" class="service-card-link">See how we can help &rarr;</a>
+            </article>
+            <article class="service-card">
+              <img src="https://assets.cdn.filesafe.space/3QseJoEOMISa0uUNTny3/media/6a31e0980c03f3dfbe807916.png" alt="Trauma & Adjustment" class="service-card-img" />
+              <h4 class="service-card-title">Trauma &amp; Adjustment</h4>
+              <p class="service-card-desc">Evidence-based, trauma-informed support to help you process, heal, and rebuild your sense of self.</p>
+              <a href="/services/trauma-adjustment" class="service-card-link">See how we can help &rarr;</a>
+            </article>
+            <article class="service-card">
+              <img src="https://assets.cdn.filesafe.space/3QseJoEOMISa0uUNTny3/media/6a31df7ea20786fa2d961c54.png" alt="Grief & Loss" class="service-card-img" />
+              <h4 class="service-card-title">Grief &amp; Loss</h4>
+              <p class="service-card-desc">Compassionate support for bereavement and loss of any kind — on your timeline, at your pace.</p>
+              <a href="/services/grief-loss" class="service-card-link">See how we can help &rarr;</a>
+            </article>
+            <article class="service-card">
+              <img src="https://assets.cdn.filesafe.space/3QseJoEOMISa0uUNTny3/media/6a31e076602476018d6f410a.png" alt="Perinatal & Parenting" class="service-card-img" />
+              <h4 class="service-card-title">Perinatal &amp; Parenting</h4>
+              <p class="service-card-desc">Support through pregnancy, postnatal changes, birth trauma, and the beautiful complexity of becoming a parent.</p>
+              <a href="/services/perinatal-parenting" class="service-card-link">See how we can help &rarr;</a>
+            </article>
+            <article class="service-card">
+              <img src="https://assets.cdn.filesafe.space/3QseJoEOMISa0uUNTny3/media/6a31e0520a683b64fe9cc097.png" alt="ASD & Behaviour Support" class="service-card-img" />
+              <h4 class="service-card-title">ASD &amp; Behaviour Support</h4>
+              <p class="service-card-desc">Strengths-based psychology and NDIS Positive Behaviour Support for individuals and their families.</p>
+              <a href="/services/asd-behaviour-support" class="service-card-link">See how we can help &rarr;</a>
+            </article>
           </div>
-          <div class="intro-stat">
-            <span class="intro-stat-num">3</span>
-            <span class="intro-stat-label">Languages spoken</span>
+        </div>
+        <div class="services-group animate-stagger">
+          <h3 class="services-group-label">Assessments &amp; professional</h3>
+          <div class="services-grid services-grid--half">
+            <article class="service-card service-card--teal">
+              <img src="https://assets.cdn.filesafe.space/3QseJoEOMISa0uUNTny3/media/6a31e8d2c87bd94b1238bc12.png" alt="Diagnostic Assessments" class="service-card-img" />
+              <h4 class="service-card-title">Diagnostic Assessments</h4>
+              <p class="service-card-desc">Cognitive, mental health, and vocational assessments — providing the clarity needed for the right support.</p>
+              <a href="/services/diagnostic-assessments" class="service-card-link">See how we can help &rarr;</a>
+            </article>
+            <article class="service-card service-card--teal">
+              <img src="https://assets.cdn.filesafe.space/3QseJoEOMISa0uUNTny3/media/6a31e8a00a683b64fe9d4153.png" alt="Clinical Supervision" class="service-card-img" />
+              <h4 class="service-card-title">Clinical Supervision</h4>
+              <p class="service-card-desc">Board-approved clinical supervision for psychologists and allied health professionals.</p>
+              <a href="/services/clinical-supervision" class="service-card-link">See how we can help &rarr;</a>
+            </article>
           </div>
-          <div class="intro-stat">
-            <span class="intro-stat-num">$0</span>
-            <span class="intro-stat-label">NDIS out of pocket</span>
-          </div>
+        </div>
+        <div class="services-cta animate-fade-up">
+          <a href="/services" class="btn btn--outline">View all services</a>
         </div>
       </div>
     </section>
 
-    <!-- FUNDING STRIP -->
-    <div class="funding-strip" aria-label="Funding options">
-      <div class="container">
-        <div class="funding-strip-inner animate-stagger">
-          <div class="funding-item">
-            <div class="funding-item-icon" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22C6.477 22 2 17.523 2 12S6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z"/><path d="M12 8v4l3 3"/></svg></div>
-            <div class="funding-item-title">Medicare rebates</div>
-            <div class="funding-item-desc">$101.55 rebate — up to 10 sessions/year</div>
-          </div>
-          <div class="funding-item">
-            <div class="funding-item-icon" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></div>
-            <div class="funding-item-title">NDIS funded</div>
-            <div class="funding-item-desc">NDIS psychology services accepted &amp; provided — $0 out of pocket</div>
-          </div>
-          <div class="funding-item">
-            <div class="funding-item-icon" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="4" width="22" height="16" rx="2" ry="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg></div>
-            <div class="funding-item-title">Private health</div>
-            <div class="funding-item-desc">Partial rebates through most funds</div>
+    <!-- MEET WINNIE -->
+    <section class="meet-section" aria-labelledby="meet-heading">
+      <div class="meet-section-bg" aria-hidden="true"></div>
+      <div class="container meet-inner">
+        <div class="meet-image animate-fade-up">
+          <!-- PHOTO: Replace div with <img src="YOUR_URL" alt="Winnie Chong" class="meet-photo" /> -->
+          <img src="https://storage.googleapis.com/funnel-ai-production/image-generation/3QseJoEOMISa0uUNTny3/mirrored-ag5yEt0cWF.png" alt="Winnie Chong, Registered Psychologist at Trinity Haven Psychology" class="meet-photo" />
+          <div class="meet-credential-card">
+            <p class="credential-title">AHPRA Registered Psychologist</p>
+            <p class="credential-sub">Board-Approved Supervisor</p>
           </div>
         </div>
-      </div>
-    </div>
-
-    <!-- GROUP 1: FOR INDIVIDUALS & FAMILIES -->
-    <section class="section services-group-section" aria-labelledby="individuals-heading">
-      <div class="container">
-        <div class="group-header animate-fade-up">
-          <span class="group-label group-label--lav">For individuals &amp; families</span>
-          <h2 id="individuals-heading" class="group-title">Personal &amp; family support</h2>
-          <p class="group-desc">Compassionate, evidence-based support for the challenges that life brings — delivered in a safe space built entirely around you.</p>
-        </div>
-        <div class="services-cards-grid animate-stagger">
-
-          <article class="service-card-full">
-            <img src="https://assets.cdn.filesafe.space/3QseJoEOMISa0uUNTny3/media/6a31dfc9602476018d6f39ab.png" alt="Anxiety & Depression" class="svc-img" />
-            <h3 class="svc-title">Anxiety &amp; Depression</h3>
-            <p class="svc-desc">Practical, personalised strategies to manage anxiety and depression — helping you rebuild a life that feels genuinely like yours again.</p>
-            <div class="svc-tags"><span class="svc-tag">CBT</span><span class="svc-tag">ACT</span><span class="svc-tag">Medicare</span><span class="svc-tag">Telehealth</span></div>
-            <a href="/services/anxiety-depression" class="svc-link">Learn more <span aria-hidden="true">&rarr;</span></a>
-          </article>
-
-          <article class="service-card-full">
-            <img src="https://assets.cdn.filesafe.space/3QseJoEOMISa0uUNTny3/media/6a31e0980c03f3dfbe807916.png" alt="Trauma & Adjustment" class="svc-img" />
-            <h3 class="svc-title">Trauma &amp; Adjustment</h3>
-            <p class="svc-desc">Trauma-informed, evidence-based support to help you process difficult experiences, rebuild your sense of self, and move forward at your own pace.</p>
-            <div class="svc-tags"><span class="svc-tag">Trauma-informed</span><span class="svc-tag">CBT</span><span class="svc-tag">Medicare</span></div>
-            <a href="/services/trauma-adjustment" class="svc-link">Learn more <span aria-hidden="true">&rarr;</span></a>
-          </article>
-
-          <article class="service-card-full">
-            <img src="https://assets.cdn.filesafe.space/3QseJoEOMISa0uUNTny3/media/6a31e2cdc87bd94b123865fb.png" alt="Relationship & Stress Counselling" class="svc-img" />
-            <h3 class="svc-title">Relationship &amp; Stress Counselling</h3>
-            <p class="svc-desc">Rebuild communication, intimacy, and connection — whether you're working through relationship challenges alone or with a partner.</p>
-            <div class="svc-tags"><span class="svc-tag">Individuals</span><span class="svc-tag">Medicare</span></div>
-            <a href="/services/relationship-stress" class="svc-link">Learn more <span aria-hidden="true">&rarr;</span></a>
-          </article>
-
-          <article class="service-card-full">
-            <img src="https://assets.cdn.filesafe.space/3QseJoEOMISa0uUNTny3/media/6a31df7ea20786fa2d961c54.png" alt="Grief & Loss" class="svc-img" />
-            <h3 class="svc-title">Grief &amp; Loss</h3>
-            <p class="svc-desc">Compassionate support for bereavement and loss of any kind — including death, relationship loss, pregnancy loss, and loss of identity or purpose.</p>
-            <div class="svc-tags"><span class="svc-tag">Bereavement</span><span class="svc-tag">Strengths-based</span><span class="svc-tag">Medicare</span></div>
-            <a href="/services/grief-loss" class="svc-link">Learn more <span aria-hidden="true">&rarr;</span></a>
-          </article>
-
-          <article class="service-card-full">
-            <img src="https://assets.cdn.filesafe.space/3QseJoEOMISa0uUNTny3/media/6a31e076602476018d6f410a.png" alt="Perinatal & Parenting" class="svc-img" />
-            <h3 class="svc-title">Perinatal &amp; Parenting</h3>
-            <p class="svc-desc">Support through pregnancy, postnatal depression, birth trauma, and the beautifully complex journey of becoming a parent — for mothers, fathers, and partners.</p>
-            <div class="svc-tags"><span class="svc-tag">Prenatal</span><span class="svc-tag">Postnatal</span><span class="svc-tag">Medicare</span></div>
-            <a href="/services/perinatal-parenting" class="svc-link">Learn more <span aria-hidden="true">&rarr;</span></a>
-          </article>
-
-          <article class="service-card-full">
-            <img src="https://assets.cdn.filesafe.space/3QseJoEOMISa0uUNTny3/media/6a31e0520a683b64fe9cc097.png" alt="ASD & Positive Behaviour Support" class="svc-img" />
-            <h3 class="svc-title">ASD &amp; Positive Behaviour Support</h3>
-            <p class="svc-desc">Strengths-based psychology and NDIS Positive Behaviour Support (PBS) for autistic individuals and their families — focused on practical outcomes and quality of life.</p>
-            <div class="svc-tags"><span class="svc-tag svc-tag--teal">NDIS</span><span class="svc-tag">PBS</span><span class="svc-tag">Family-inclusive</span></div>
-            <a href="/services/asd-behaviour-support" class="svc-link">Learn more <span aria-hidden="true">&rarr;</span></a>
-          </article>
-
+        <div class="meet-content animate-fade-up animate-delay-1">
+          <span class="eyebrow">Principal Psychologist</span>
+          <h2 id="meet-heading">Meet Winnie Chong</h2>
+          <p class="meet-bio">Hi, I'm Winnie. I'm a Registered Psychologist and Board-Approved Supervisor with over 17 years of experience working with people across every stage of life. I believe that everyone has the capacity for growth and meaningful change — my job is to walk alongside you as you find yours.</p>
+          <p class="meet-bio">I work collaboratively and come to every session without judgement. I know that reaching out takes courage, and I honour that by meeting you exactly where you are.</p>
+          <ul class="meet-badges" role="list">
+            <li class="badge badge--lavender">CBT</li>
+            <li class="badge badge--lavender">ACT</li>
+            <li class="badge badge--teal">Motivational Interviewing</li>
+            <li class="badge badge--teal">Chairwork</li>
+            <li class="badge badge--lavender">Solution-Focused</li>
+            <li class="badge badge--teal">Strengths-Based</li>
+          </ul>
+          <a href="/about" class="btn btn--primary">Read Winnie's full story</a>
         </div>
       </div>
     </section>
 
-    <!-- GROUP 2: ASSESSMENTS & PROFESSIONAL -->
-    <section class="section services-group-section" aria-labelledby="professional-heading">
-      <div class="container">
-        <div class="group-header animate-fade-up">
-          <span class="group-label">Assessments &amp; professional</span>
-          <h2 id="professional-heading" class="group-title">Assessments &amp; professional services</h2>
-          <p class="group-desc">Specialist services for individuals needing formal assessment, professionals seeking supervision, and groups seeking collective support.</p>
+    <!-- PROCESS -->
+    <section class="process-section" aria-labelledby="process-heading">
+      <div class="container process-inner">
+        <div class="section-header animate-fade-up">
+          <span class="eyebrow">Getting started</span>
+          <h2 id="process-heading">The path forward starts here</h2>
+          <p class="section-subtitle">Three simple steps between where you are now and the support you deserve.</p>
         </div>
-        <div class="services-cards-grid services-cards-grid--two animate-stagger">
+        <ol class="process-steps animate-stagger" role="list">
+          <li class="process-step">
+            <div class="process-step-number" aria-hidden="true">1</div>
+            <div>
+              <h3 class="process-step-title">Reach out</h3>
+              <p class="process-step-desc">Book online, call us, or send an enquiry. There's no obligation — just a conversation about how we can help.</p>
+            </div>
+          </li>
+          <li class="process-step">
+            <div class="process-step-number" aria-hidden="true">2</div>
+            <div>
+              <h3 class="process-step-title">Your first session</h3>
+              <p class="process-step-desc">We take time to understand your situation, goals, and what matters most to you — no rush, no pressure.</p>
+            </div>
+          </li>
+          <li class="process-step">
+            <div class="process-step-number" aria-hidden="true">3</div>
+            <div>
+              <h3 class="process-step-title">Begin your journey</h3>
+              <p class="process-step-desc">Together we develop a personalised plan that moves at your pace and builds toward the life you want.</p>
+            </div>
+          </li>
+        </ol>
+      </div>
+    </section>
+ <!-- TESTIMONIALS — hidden until Winnie has real reviews
+    <section class="section testimonials-section" aria-labelledby="testimonials-heading">
+      <div class="container">
+        <div class="section-header animate-fade-up">
+          <span class="eyebrow">Kind words</span>
+          <h2 id="testimonials-heading">What clients say</h2>
+        </div>
+        <div class="testimonials-grid animate-stagger">
+          <blockquote class="testimonial-card">
+            <div class="testimonial-stars" aria-label="5 out of 5 stars"><span aria-hidden="true">&#9733;&#9733;&#9733;&#9733;&#9733;</span></div>
+            <p class="testimonial-text">"Winnie creates such a safe and welcoming space. For the first time in years, I genuinely feel heard and understood. I can't recommend her enough."</p>
+            <footer class="testimonial-author">
+              <div class="testimonial-avatar" aria-hidden="true">S</div>
+              <div><p class="testimonial-name">Sarah M.</p><p class="testimonial-service">Anxiety &amp; Depression</p></div>
+            </footer>
+          </blockquote>
+          <blockquote class="testimonial-card">
+            <div class="testimonial-stars" aria-label="5 out of 5 stars"><span aria-hidden="true">&#9733;&#9733;&#9733;&#9733;&#9733;</span></div>
+            <p class="testimonial-text">"The tools and perspectives I've gained from our sessions have genuinely changed how I approach everything — my relationships, my work, myself."</p>
+            <footer class="testimonial-author">
+              <div class="testimonial-avatar" aria-hidden="true">J</div>
+              <div><p class="testimonial-name">James T.</p><p class="testimonial-service">Trauma &amp; Adjustment</p></div>
+            </footer>
+          </blockquote>
+          <blockquote class="testimonial-card">
+            <div class="testimonial-stars" aria-label="5 out of 5 stars"><span aria-hidden="true">&#9733;&#9733;&#9733;&#9733;&#9733;</span></div>
+            <p class="testimonial-text">"I was so nervous about reaching out. But from the very first session, Winnie made me feel completely at ease. It was the best decision I've made for myself."</p>
+            <footer class="testimonial-author">
+              <div class="testimonial-avatar" aria-hidden="true">M</div>
+              <div><p class="testimonial-name">Mei L.</p><p class="testimonial-service">Relationship Counselling</p></div>
+            </footer>
+          </blockquote>
+        </div>
+        <div class="ghl-placeholder" role="region" aria-label="Client reviews widget">
+          <p class="ghl-placeholder-label">&#9733; GHL Reviews Widget embeds here</p>
+          <p class="ghl-placeholder-sub">Paste your GoHighLevel review widget embed code inside this container</p>
+        </div>
+      </div>
+    </section>
+    -->
+    <!-- FUNDING -->
+    <section class="section funding-section" aria-labelledby="funding-heading">
+      <div class="container">
+        <div class="section-header animate-fade-up">
+          <span class="eyebrow">Making it accessible</span>
+          <h2 id="funding-heading">Funding options we accept</h2>
+          <p class="section-subtitle">We want the cost of care to be as little a barrier as possible.</p>
+        </div>
+        <div class="funding-grid animate-stagger">
+          <div class="funding-card">
+            <div class="funding-icon" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22C6.477 22 2 17.523 2 12S6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z"/><path d="M12 8v4l3 3"/></svg></div>
+            <h3 class="funding-title">Medicare</h3>
+            <p class="funding-desc">Receive a $101.55 rebate per session — up to 10 sessions per year with a Mental Health Care Plan from your GP.</p>
+            <a href="/fees" class="funding-link">Learn more &rarr;</a>
+          </div>
+          <div class="funding-card">
+            <div class="funding-icon" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></div>
+            <h3 class="funding-title">NDIS</h3>
+            <p class="funding-desc">Fully funded psychology and Positive Behaviour Support services for eligible NDIS participants — $0 out of pocket.</p>
+            <a href="/fees" class="funding-link">Learn more &rarr;</a>
+          </div>
+          <div class="funding-card">
+            <div class="funding-icon" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="4" width="22" height="16" rx="2" ry="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg></div>
+            <h3 class="funding-title">Private Health</h3>
+            <p class="funding-desc">Eligible for partial rebates through most private health funds. Check your coverage for "General Psychologist Consultation."</p>
+            <a href="/fees" class="funding-link">Learn more &rarr;</a>
+          </div>
+        </div>
+        <p class="funding-bulk-note"><strong>Bulk billing available</strong> for eligible clients — 10% of Winnie's caseload is reserved for significantly disadvantaged individuals. <a href="/fees">See our full fee schedule &rarr;</a></p>
+      </div>
+    </section>
 
-          <article class="service-card-full service-card-full--teal">
-            <img src="https://assets.cdn.filesafe.space/3QseJoEOMISa0uUNTny3/media/6a31e8d2c87bd94b1238bc12.png" alt="Diagnostic Assessments" class="svc-img" />
-            <h3 class="svc-title">Diagnostic Assessments</h3>
-            <p class="svc-desc">Comprehensive cognitive, mental health, and vocational psychological assessments — providing the clarity needed to access the right support, services, and funding. Includes formal report writing and support letters.</p>
-            <div class="svc-tags"><span class="svc-tag svc-tag--teal">Cognitive</span><span class="svc-tag svc-tag--teal">Mental health</span><span class="svc-tag svc-tag--teal">Vocational</span><span class="svc-tag svc-tag--teal">NDIS</span></div>
-            <a href="/services/diagnostic-assessments" class="svc-link">Learn more <span aria-hidden="true">&rarr;</span></a>
-          </article>
-
-          <article class="service-card-full service-card-full--teal">
-            <img src="https://assets.cdn.filesafe.space/3QseJoEOMISa0uUNTny3/media/6a31e8a00a683b64fe9d4153.png" alt="Clinical Supervision" class="svc-img" />
-            <h3 class="svc-title">Clinical Supervision</h3>
-            <p class="svc-desc">Board-approved clinical supervision for psychologists and allied health professionals — individual and group formats. A reflective, growth-oriented space to process clinical work, build skills, and sustain your practice. Tax deductible for eligible professionals.</p>
-            <div class="svc-tags"><span class="svc-tag svc-tag--teal">Board-approved</span><span class="svc-tag svc-tag--teal">Individual</span><span class="svc-tag svc-tag--teal">Group</span><span class="svc-tag svc-tag--teal">Tax deductible</span></div>
-            <a href="/services/clinical-supervision" class="svc-link">Learn more <span aria-hidden="true">&rarr;</span></a>
-          </article>
-
-          <article class="service-card-full service-card-full--teal" style="grid-column: 1 / -1; max-width: 540px;">
-            <img src="https://assets.cdn.filesafe.space/3QseJoEOMISa0uUNTny3/media/6a309f071b95dbb2c2136328.png" alt="Group Therapy" class="svc-img" />
-            <h3 class="svc-title">Group Therapy</h3>
-            <p class="svc-desc">Facilitated group therapy sessions offering a powerful and more accessible format for healing alongside others who understand. Led by Winnie. Current group availability varies — join the waitlist to be notified when new groups open.</p>
-            <div class="svc-tags"><span class="svc-tag svc-tag--teal">Led by psychologist</span><span class="svc-tag svc-tag--teal">Waitlist open</span><span class="svc-tag svc-tag--teal">Medicare eligible</span></div>
-            <a href="/services/group-therapy" class="svc-link">Join the waitlist <span aria-hidden="true">&rarr;</span></a>
-          </article>
-
+    <!-- FAQ -->
+    <section class="section faq-section" aria-labelledby="faq-heading">
+      <div class="container faq-inner">
+        <div class="faq-content animate-fade-up">
+          <span class="eyebrow">Common questions</span>
+          <h2 id="faq-heading">Frequently asked questions</h2>
+          <p class="section-subtitle" style="text-align:left;margin-inline:0;">A few things people often want to know before getting in touch.</p>
+          <a href="/faq" class="btn btn--outline" style="margin-top:1.5rem;">View all FAQs</a>
+        </div>
+        <div class="faq-list animate-fade-up animate-delay-1">
+          <details class="faq-item">
+            <summary class="faq-question">Do I need a referral to see a psychologist?<span class="faq-icon" aria-hidden="true">+</span></summary>
+            <div class="faq-answer"><p>No — you can book directly without a referral. However, a Mental Health Care Plan (MHCP) from your GP allows you to claim a $101.55 Medicare rebate for up to 10 sessions per year.</p></div>
+          </details>
+          <details class="faq-item">
+            <summary class="faq-question">What happens in the first session?<span class="faq-icon" aria-hidden="true">+</span></summary>
+            <div class="faq-answer"><p>Your first session is a gentle, unhurried conversation about your current situation, background, and goals. We'll discuss confidentiality, answer any questions, and begin developing a personalised treatment plan together.</p></div>
+          </details>
+          <details class="faq-item">
+            <summary class="faq-question">Do you offer telehealth sessions?<span class="faq-icon" aria-hidden="true">+</span></summary>
+            <div class="faq-answer"><p>Yes — all sessions are available face to face at our Norwest clinic or via telehealth online. Medicare rebates apply to both formats.</p></div>
+          </details>
+          <details class="faq-item">
+            <summary class="faq-question">What is the cancellation policy?<span class="faq-icon" aria-hidden="true">+</span></summary>
+            <div class="faq-answer"><p>We ask for at least 24 hours' notice to cancel or reschedule. A $50 fee applies for late cancellations and $100 for no-shows without notice.</p></div>
+          </details>
         </div>
       </div>
     </section>
 
-    <!-- NOT SURE SECTION -->
-    <section class="section not-sure-section" aria-labelledby="not-sure-heading">
-      <div class="container not-sure-inner">
-        <div class="not-sure-content animate-fade-up">
-          <span class="eyebrow">Not sure where to start?</span>
-          <h2 id="not-sure-heading">We'll help you figure it out</h2>
-          <p>You don't need to have it all figured out before you reach out. Many of our clients aren't sure exactly what they need — and that's completely okay. Winnie will help you identify the right type of support during your first session.</p>
-          <a href="/contact" class="btn btn--primary">Get in touch</a>
-        </div>
-        <div class="not-sure-steps animate-stagger">
-          <div class="not-sure-step">
-            <div class="not-sure-step-num" aria-hidden="true">1</div>
-            <div>
-              <p class="not-sure-step-title">Reach out — no preparation needed</p>
-              <p class="not-sure-step-text">You don't need to know what's wrong or have a diagnosis. Just reach out and we'll take it from there.</p>
-            </div>
-          </div>
-          <div class="not-sure-step">
-            <div class="not-sure-step-num" aria-hidden="true">2</div>
-            <div>
-              <p class="not-sure-step-title">Your first session is an assessment</p>
-              <p class="not-sure-step-text">A gentle, unhurried conversation about your situation, goals, and what matters most to you — Winnie will guide it.</p>
-            </div>
-          </div>
-          <div class="not-sure-step">
-            <div class="not-sure-step-num" aria-hidden="true">3</div>
-            <div>
-              <p class="not-sure-step-title">A personalised plan is built together</p>
-              <p class="not-sure-step-text">Winnie will recommend the most suitable approach and services — always collaboratively, never prescriptively.</p>
-            </div>
-          </div>
-        </div>
+    <!-- QUOTE -->
+    <section class="quote-section" aria-label="Inspirational quote">
+      <div class="container">
+        <blockquote class="site-quote animate-fade-up">
+          <p class="site-quote-text">"The greatest glory in living lies not in never falling, but in rising every time we fall."</p>
+          <footer class="site-quote-attr">— Nelson Mandela</footer>
+        </blockquote>
       </div>
     </section>
 
     <!-- CTA -->
-    <section class="section cta-section" aria-labelledby="services-cta-heading">
+    <section class="section cta-section" aria-labelledby="cta-heading">
       <div class="container">
         <div class="cta-inner animate-fade-up">
-          <span class="eyebrow cta-eyebrow">Medicare &amp; NDIS accepted</span>
-          <h2 id="services-cta-heading" class="cta-heading">Ready to take the first step?</h2>
-          <p class="cta-subtext">Book your first appointment online, or reach out with any questions. We'll respond within one business day.</p>
+          <span class="eyebrow cta-eyebrow">You've taken the first step by being here</span>
+          <h2 id="cta-heading" class="cta-heading">Take the first step today</h2>
+          <p class="cta-subtext">Reaching out is often the hardest part. We're here to make it as easy as possible. Book online, call us, or send a message — we'll respond within one business day.</p>
           <div class="cta-buttons">
             <a href="/contact" class="btn btn--cta-primary">Book an appointment</a>
-            <a href="/fees" class="btn btn--cta-secondary">View fees &amp; rebates</a>
+            <a href="/contact" class="btn btn--cta-secondary">Send an enquiry</a>
           </div>
           <div class="cta-contact-details">
             <a href="tel:0431144399" class="cta-contact-link"><svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.55 3.41 2 2 0 0 1 3.52 1h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.56a16 16 0 0 0 6.29 6.29l1.42-1.42a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>0431 144 399</a>
             <span class="cta-contact-divider" aria-hidden="true">&middot;</span>
-            <span class="cta-contact-link"><svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>Norwest NSW 2153</span>
+            <span class="cta-contact-link"><svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>C4, 1–3 Burbank Place, Norwest NSW 2153</span>
           </div>
         </div>
       </div>
